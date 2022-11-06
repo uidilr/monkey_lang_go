@@ -12,12 +12,21 @@ const (
 	EOF     = "EOF"
 
 	// LITERAL
-	IDENT = "IDENT" // add, foobar, x, y,
+	IDENT = "IDENT" // e.g. add, foobar, x, y,
 	INT   = "INT"
 
 	// operator
-	ASSIGN = "="
-	PLUS   = "+"
+	ASSIGN   = "="
+	PLUS     = "+"
+	MINUS    = "-"
+	BANG     = "!"
+	ASTERISK = "*"
+	SLASH    = "/"
+
+	EQ     = "=="
+	NOT_EQ = "!="
+	LT     = "<"
+	GT     = ">"
 
 	// delimiter
 	COMMA     = ","
@@ -31,4 +40,26 @@ const (
 	// keyword
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
 )
+
+var keywords = map[string]TokenType{
+	"fn":     FUNCTION,
+	"let":    LET,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
+	"return": RETURN,
+}
+
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
+}
